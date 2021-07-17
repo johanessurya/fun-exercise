@@ -67,36 +67,69 @@ var MyGame = function(canvas) {
     this.images = [];
     this.counter = 0;
 
+    this.sprite = null;
+    this.startTime = null;
+    this.endTime = null;
+    this.diffTime = 0;
+
     this.init = function() {
         this.context = this.canvas.getContext("2d");
         this.loadAssets();
+        this.startTime = new Date();
+        this.endTime = new Date();
     };
 
     this.start = function() {
         var vm = this;
 
-        this.loadAssets();
-
-        this.testDraw();
-    };
-
-    this.testDraw = function() {
-        var vm = this;
-
-        vm.clear();
         if (this.isAssetsReady()) {
-            vm.context.drawImage(vm.images[vm.counter].resource, 0, 0);
+            if (this.sprite == null)
+                this.prepareSprite();
 
-            vm.counter++;
+            // this.loadAssets();
+            // this.startTime = new Date();
+            this.update(this.diffTime);
+            this.endTime = new Date();
+            this.diffTime = this.endTime - this.startTime;
 
-            if (vm.counter >= vm.images.length) {
-                vm.counter = vm.counter - vm.images.length;
-            }
+            this.startTime = this.endTime;
+        } else {
+            this.drawLoading();
         }
 
         setTimeout(function() {
-            vm.testDraw();
-        }, 100);
+            vm.start();
+        }, 10);
+    };
+
+    this.drawLoading = function() {
+        this.clear();
+        this.context.font = "30px Arial";
+        this.context.fillText("Loading...", 10, 50);
+    }
+
+    this.prepareSprite = function() {
+        var x = null;
+        this.sprite = new Sprite('run');
+
+        for (var i = 0; i < this.images.length; i++) {
+            x = this.images[i];
+
+            // console.log(x.resource);
+            this.sprite.add(x.resource, 100);
+        }
+
+        // debugger;
+    }
+
+    this.update = function(elapsedTime) {
+        var vm = this;
+
+        this.sprite.update(elapsedTime);
+
+        // console.log('update', elapsedTime, this.sprite.getImage());
+        vm.clear();
+        vm.context.drawImage(this.sprite.getImage(), 0, 0);
     }
 
     this.isAssetsReady = function() {
@@ -140,7 +173,7 @@ var MyGame = function(canvas) {
     }
 
     this.updateLoadedImage = function(index) {
-        console.log(this, index);
+        // console.log(this, index);
         this.images[index].is_loaded = true;
     }
 
