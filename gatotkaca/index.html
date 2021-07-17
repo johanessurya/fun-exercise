@@ -24,6 +24,7 @@ var MyGame = function(canvas) {
     this.height = canvas.height;
 
     this.images = [];
+    this.counter = 0;
 
     this.init = function() {
         this.context = this.canvas.getContext("2d");
@@ -41,12 +42,20 @@ var MyGame = function(canvas) {
     this.testDraw = function() {
         var vm = this;
 
+        vm.clear();
         if (this.isAssetsReady()) {
+            vm.context.drawImage(vm.images[vm.counter].resource, 0, 0);
+
+            vm.counter++;
+
+            if (vm.counter >= vm.images.length) {
+                vm.counter = vm.counter - vm.images.length;
+            }
         }
 
         setTimeout(function() {
             vm.testDraw();
-        }, 300);
+        }, 100);
     }
 
     this.isAssetsReady = function() {
