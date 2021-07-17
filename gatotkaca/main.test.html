@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gatotkaca - Sprit Animation</title>
+<style>
+canvas {
+    border: 1px solid #000000;
+}
+</style>
+
+<link rel="shortcut icon" type="image/png" href="../bower_components/jasmine-core/images/jasmine_favicon.png">
+<link rel="stylesheet" type="text/css" href="../bower_components/jasmine-core/lib/jasmine-core/jasmine.css">
+
+<script type="text/javascript" src="../bower_components/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+<script type="text/javascript" src="../bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+<script type="text/javascript" src="../bower_components/jasmine-core/lib/jasmine-core/boot.js"></script>
+
+<script src="js/main.js"></script>
+<script>
+describe("A suite", function() {
+  it("Sprite Test", function() {
+    var sprite = new Sprite('test');
+    var image = null;
+
+    // Prepare frame
+    sprite.add('image1', 200); // 200
+    sprite.add('image2', 300); // 500
+    sprite.add('image3', 500); // 1000
+
+    sprite.update(0);
+    timelapsed = sprite.getTotalTimelapsed();
+    image = sprite.getImage();
+    expect('image1').toBe(image);
+    expect(0).toBe(timelapsed);
+
+    sprite.update(200);
+    timelapsed = sprite.getTotalTimelapsed();
+    image = sprite.getImage();
+    expect('image1').toBe(image);
+    expect(200).toBe(timelapsed);
+
+    sprite.update(300);
+    timelapsed = sprite.getTotalTimelapsed();
+    image = sprite.getImage();
+    expect('image2').toBe(image);
+    expect(500).toBe(timelapsed);
+
+    console.log(sprite);
+
+    // debugger;
+    sprite.update(500);
+    timelapsed = sprite.getTotalTimelapsed();
+    image = sprite.getImage();
+    expect('image3').toBe(image);
+    expect(1000).toBe(timelapsed);
+
+    // Overlap test
+    sprite.update(100);
+    timelapsed = sprite.getTotalTimelapsed();
+    image = sprite.getImage();
+    expect('image1').toBe(image);
+    expect(100).toBe(timelapsed);
+  });
+});
+</script>
+</head>
+<body>
+</body>
+</html>
