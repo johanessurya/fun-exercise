@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backtracking - Knight Tour Problem</title>
+    <script src="../bower_components/underscore/underscore-min.js"></script>
+    <script>
+window.onload = function() {
+    main();
+}
+
+function main() {
+    var mainApp = {
+      data: function() {
+        return {
+            START_POS: [0,0],
+            counter: 1,
+            currPos: [],
+            moveList: [
+                // Kanan atas
+                [-2, 1],
+                [-1, 2],
+
+                // Kanan bawah
+                [1, 2],
+                [2, 1],
+
+                // Kiri bawah
+                [2, -1],
+                [1, -2],
+
+                // Kiri atas
+                [-1, -2],
+                [-2, -1]
+            ],
+            board: [],
+            message: 'Hello Vue!!'
+        }
+      },
+      created: function() {
+          var vm = this;
+
+          var width = 8;
+          var row = [];
+          vm.board = [];
+          for(var i = 0; i < width; i++) {
+            row = [];
+            for(var j = 0; j < width; j++) {
+                row.push(0);
+            }
+            vm.board.push(row);
+          }
+
+          // console.log('create', vm.board);
+          // vm.test();
+
+            vm.currPos = vm.START_POS;
+            vm.board[vm.currPos[0]][vm.currPos[1]] = 1;
+
+            console.log('timeout');
+            // debugger;
+
+            setTimeout(function() {
+                vm.loop(0)
+            }, 0);
+
+            /*
+            do {
+              hasSolution = vm.play(vm.currPos, moved, 2);
+              moved++;
+              console.log(moved);
+            } while(!hasSolution && moved < vm.moveList.length);
+            */
+      },
+      methods: {
+          loop: function(moved) {
+            var vm = this;
+            var hasSolution = true;
+            // var moved = 0;
+
+            hasSolution = vm.play(vm.currPos, moved, 2);
+            moved++;
+            console.log(moved);
+
+            if(!hasSolution && moved < vm.moveList.length) {
+                debugger;
+                vm.loop(moved + 1);
+            }
+          },
+          play: function(currPos, moved, counter) {
+                if(counter == 64)
+                    debugger;
+
+                var temp = true;
+                var vm = this;
+                var nextMove = [];
+                var nextMoveBoard = 1;
+                var isInBoard = true;
+              
+                nextMove = this.getNextMove(currPos, vm.moveList[moved]);
+                isInBoard = vm.isInBoard(nextMove);
+
+                if(isInBoard)
+                    nextMoveBoard = vm.board[nextMove[0]][nextMove[1]];
+
+              /*
+              } while ((!isInBoard ||
+                    nextMoveBoard > 0) &&
+                    (moved < vm.moveList.length))
+                    */
+              // debugger;
+              if(nextMoveBoard === 0) {
+                if(counter == 64)
+                    debugger;
+
+
+                // Need this variable to skip move
+                console.log(counter);
+                vm.counter = counter;
+                vm.board[nextMove[0]][nextMove[1]] = counter;
+                // debugger;
+
+                var moveCounter = 0;
+                var hasSolution = true;
+
+                do {
+                    hasSolution = vm.play(nextMove, moveCounter, counter + 1);
+                    moveCounter++;
+
+                    /*
+                    if (!hasSolution && moveCounter >= vm.moveList.length) {
+                        vm.board[nextMove[0]][nextMove[1]] = 0;
+                        counter--;
+                    }
+                     */
+                    // debugger;
+                } while(!hasSolution && moveCounter < vm.moveList.length);
+
+                if (!hasSolution && moveCounter >= vm.moveList.length) {
+                    vm.board[nextMove[0]][nextMove[1]] = 0;
+                    temp = false;
+                    // debugger;
+                }
+              } else {
+                temp = false;
+              }
+
+              return temp;
+          },
+          isInBoard: function(position) {
+              return position[0] >= 0 && position[0] < 8 &&
+                position[1] >= 0 && position[1] < 8;
+          },
+          getNextMove: function(currPos, moved) {
+              var temp = [];
+              temp[0] = currPos[0] + moved[0];
+              temp[1] = currPos[1] + moved[1];
+
+              return temp;
+          },
+          test: function() {
+              var vm = this;
+              var startPos = [3, 3];
+
+              vm.board[startPos[0]][startPos[1]] = 1;
+              _.each(this.moveList, function(x, key) {
+                  var temp = [];
+                  temp[0] = startPos[0] + x[0];
+                  temp[1] = startPos[1] + x[1];
+
+                  vm.board[temp[0]][temp[1]] = key + 1;
+              });
+          }
+      }
+    };
+
+    Vue.createApp(mainApp).mount('#app');
+
+var KnightTour = function(canvas) {
+    this.WIDTH = 8;
+    this.HEIGHT = 8;
+
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
+    this.canvasWidth = canvas.width;
+    this.canvasHeight = canvas.height;
+
+    this.board = [
+        [1, 2, 3],
+        [1, 2, 3],
+        [1, 2],
+    ];
+
+    this.draw = function() {
+        this.clear();
+        this.drawTable(this.canvasWidth, this.canvasHeight);
+        this.drawArray(this.board);
+    }
+
+    this.clear = function() {
+        this.context.clearRect(0, 0, this.width, this.height);
+    }
+
+    this.drawTable = function(width, height) {
+        var i = 0;
+        var size = width / this.WIDTH;
+
+        for(i = 0; i <= this.WIDTH; i++) {
+            this.drawHorizontal(0, i * size, width);
+            this.drawVertical(i * size, 0, height);
+        }
+    }
+
+    this.drawArray = function(list) {
+        var ctx = this.context;
+        var size = this.canvasWidth / this.WIDTH;
+
+        ctx.font = "50px Arial";
+
+        debugger;
+
+        _.each(list, function(x, key1) {
+            _.each(x, function(y, key2) {
+                ctx.fillText(y, key1 * size + 20, key2 * size + 55);
+            });
+        })
+    }
+
+    this.drawHorizontal = function(x, y, long) {
+        var ctx = this.context;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(long, y);
+        ctx.stroke();
+    }
+
+    this.drawVertical = function(x, y, long) {
+        var ctx = this.context;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x, long);
+        ctx.stroke();
+    }
+};
+
+var myCanvas = document.getElementById("mycanvas");
+
+var knightTour = new KnightTour(myCanvas);
+knightTour.draw();
+}
+    </script>
+    <style>
+td {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Knight Tour Problem - Step: {{ counter }}</h1>
+        <table border="1">
+            <tr v-for="x in board">
+                <td v-for="y in x">{{ y == 0 ? ' ': y }}</td>
+            </tr>
+        </table>
+
+    </div>
+    <canvas id="mycanvas" width="600" height="600"></canvas>
+</body>
+</html>
