@@ -266,6 +266,7 @@ function main() {
     Vue.createApp(mainApp).mount('#app');
 }
     </script>
+<?php include '../header.php'; ?>
     <style>
 td {
     width: 70px;

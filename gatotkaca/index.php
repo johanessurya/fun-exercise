@@ -16,6 +16,7 @@ window.onload = function() {
     myGame.start();
 }    
 </script>
+<?php include '../header.php'; ?>
 </head>
 <body>
 <canvas id="myCanvas" width="640" height="480"></canvas>
