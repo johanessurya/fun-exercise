@@ -369,7 +369,7 @@ td {
         <h1>Knight Tour Problem</h1>
         <table border="1">
             <tr v-for="x in replayBoard">
-                <td v-for="y in x" v-bind:class="[ y == 1 ? 'green' : '', y == -1 ? 'red' : '' ]">{{ y == 0 ? y : y }}</td>
+                <td v-for="y in x" v-bind:class="[ y == 1 ? 'green' : '', y == -1 ? 'red' : '' ]"><img v-if="y==1" src="img/queen.png" width="60" height="60" /></td>
             </tr>
         </table>
     </div>
