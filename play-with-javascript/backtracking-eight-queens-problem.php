@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Backtracking - Eight Queen Problem</title>
+    <title>Backtracking - Eight Queens Problem</title>
     <script src="https://unpkg.com/vue@3.1.5/dist/vue.global.prod.js"></script>
     <script src="../bower_components/underscore/underscore-min.js"></script>
     <script>
@@ -366,7 +366,7 @@ td {
 </head>
 <body>
     <div id="app">
-        <h1>Knight Tour Problem</h1>
+        <h1>Eight Queens Problem</h1>
         <table border="1">
             <tr v-for="x in replayBoard">
                 <td v-for="y in x" v-bind:class="[ y == 1 ? 'green' : '', y == -1 ? 'red' : '' ]"><img v-if="y==1" src="img/queen.png" width="60" height="60" /></td>
