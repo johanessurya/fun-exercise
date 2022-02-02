@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "jasmine-core": "^3.8.0",
-    "underscore": "^1.13.1"
+    "underscore": "^1.13.1",
+    "bootstrap": "^5.1.3"
   }
 }
