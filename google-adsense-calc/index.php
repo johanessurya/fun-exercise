@@ -172,7 +172,7 @@ Vue.createApp({
     </div>
   </main>
 
-  <footer class="text-muted text-center text-small">
+  <footer class="text-muted text-center text-small d-none">
     <p class="mb-1">&copy; 2016 - 2022 <a href="<?php echo FOOTER_URL; ?>">Wevelope</a> - <?php echo FOOTER_TAGLINE; ?></p>
     <ul class="list-inline">
       <li class="list-inline-item"><a href="<?php echo ARTICLE_URL ?>">Penjelasan Cara Menghitung Google Adsense</a></li>
