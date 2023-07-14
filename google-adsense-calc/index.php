@@ -16,8 +16,7 @@ require 'env.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
+    <meta name="author" content="Johanes Surya">
     <title>Kalkulator Google Adsense - Wevelope</title>
 
     <!-- Bootstrap core CSS -->
@@ -32,6 +31,7 @@ window.onload = function() {
 Vue.createApp({
   data: function() {
     return {
+      pv_per_month: 1000 * 300,
       pv: 1000,
       ctr: 0.5,
       cpc: 3000,
@@ -69,6 +69,13 @@ Vue.createApp({
       // console.log(strNum, symbol, symbol + 'Rp0,0');
 
       return symbol + strNum;
+    },
+    // When pv per month changed
+    onChangePvMonth: function() {
+      this.pv = this.pv_per_month / 30;
+    },
+    onChangePv: function() {
+      this.pv_per_month = this.pv * 30;
     }
   }
 }).mount('#app')
@@ -106,8 +113,13 @@ Vue.createApp({
         <form class="needs-validation" novalidate v-on:submit.prevent="submit">
           <div class="row g-3">
             <div class="col-sm-12">
+              <label for="firstName" class="form-label">Pageview Per Bulan</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" v-model="pv_per_month" required @change="onChangePvMonth">
+            </div>
+
+            <div class="col-sm-12">
               <label for="firstName" class="form-label">Pageview Per Hari</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" v-model="pv" required>
+              <input type="text" class="form-control" id="firstName" placeholder="" v-model="pv" required @change="onChangePv">
             </div>
 
             <div class="col-sm-12">
