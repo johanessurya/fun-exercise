@@ -15,8 +15,9 @@ require 'env.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="kalkulator untuk membantu menghitung pendapatan google adsense">
     <meta name="author" content="Johanes Surya">
+    <meta name="robots" content="noindex, nofollow" />
     <title>Kalkulator Google Adsense - Wevelope</title>
 
     <!-- Bootstrap core CSS -->
@@ -104,10 +105,6 @@ Vue.createApp({
   <body class="bg-light">
 <div class="container" id="app">
   <main>
-    <div class="py-5 text-center">
-      <h2>Kalkulator Google Adsense</h2>
-    </div>
-
     <div class="row g-5">
       <div class="col-md-12 col-lg-12">
         <form class="needs-validation" novalidate v-on:submit.prevent="submit">
