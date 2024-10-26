@@ -103,7 +103,7 @@ Vue.createApp({
     </style>
 
   </head>
-  <body class="bg-light">
+  <body class="bg-light wevelope-theme">
 <div class="container" id="app">
   <main>
     <div class="row g-5">
