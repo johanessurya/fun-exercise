@@ -1,0 +1,12 @@
+body.wevelope-theme {
+    background-color: #fff !important;
+}
+
+.wevelope-theme .btn-primary {
+    background-color: #00a798;
+    border-color: #00a798;
+}
+
+.wevelope-theme .input-group-text {
+    background-color: #00a798;
+}
